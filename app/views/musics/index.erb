@@ -1,9 +1,14 @@
 <h1>Home Page</h1>
 
+<% if login_user %>
+  <h2>Welcome back, <%= login_user[:username] %></h2>
+<% end %>
+
 <% @musics.each do |music| %>
   <div class="music">
     <h3><a href="<%= music.url %>"><%= music.title %></a> <small>(by: <%= music.author %>)</small></h3>
   </div>
 <% end %>
 
+<a href="/musics/login">LOGIN!</a>
 <a href="/musics/new">Post a song... It's FREE (for now)!</a>

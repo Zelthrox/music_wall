@@ -1,4 +1,11 @@
 # Homepage (Root path)
+
+enable :sessions
+
+def login_user
+  User.find { |user| user[:id] == session[:user_id]}
+end
+
 get '/' do
   erb :index
 end
@@ -22,5 +29,19 @@ post '/musics' do
     redirect '/musics'
   else
     erb :"musics/new"
+  end
+end
+
+get '/musics/login' do
+  erb :"musics/login"
+end
+
+post '/logins' do
+  users = User.find{ |user| user[:username] == params[:username]}
+  if users[:password] == params[:password]
+    session[:user_id] = users[:id]
+    redirect '/musics'
+  else
+    erb :"/musics/logins"
   end
 end
