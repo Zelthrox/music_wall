@@ -1,0 +1,17 @@
+
+<form method="post" action="/musics">
+  <div>
+    <label>Author:</label>
+    <input type="text" name="author" value="<%= @music && @music.author %>">
+  <div>
+    <label>Title:</label>
+    <input type="text" name="title" value="<%= @music && @music.title %>">
+  </div>
+  <div>
+    <label>Url:</label>
+    <input type="text" name="url" value="<%= @music && @music.url %>">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
