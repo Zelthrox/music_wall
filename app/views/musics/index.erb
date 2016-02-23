@@ -11,6 +11,15 @@
   <div class="music">
     <h3><a href="<%= music.url %>"><%= music.title %></a> <small>(by: <%= music.author %>)</small></h3>
   </div>
+  <div>
+    <p><small> <%= music.added_by %><button><%= music.vote_num %></button></small></a></p>
+  </div>
+  <div><% if login_user %>
+    <form action="/<%= music.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="[Delete]">
+    </form>
+  <% end %></div>
 <% end %>
 
 <a href="/musics/login">LOGIN!</a>
