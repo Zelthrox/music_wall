@@ -36,7 +36,7 @@ get '/musics/login' do
   erb :"musics/login"
 end
 
-post '/logins' do
+post '/musics/logins' do
   users = User.find{ |user| user[:username] == params[:username]}
   if users[:password] == params[:password]
     session[:user_id] = users[:id]
@@ -44,4 +44,9 @@ post '/logins' do
   else
     erb :"/musics/logins"
   end
+end
+
+get '/musics/logouts' do
+  session.clear
+  redirect '/musics'
 end
