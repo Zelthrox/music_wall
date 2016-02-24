@@ -1,0 +1,6 @@
+<% if login_user %>
+  <h2>Welcome back, <%= login_user[:username] %></h2>
+  <div>
+    <p><a href="/musics/logouts"><small>(LOGOUT)</small></a></p>
+  </div>
+<% end %>

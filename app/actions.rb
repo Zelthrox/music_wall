@@ -53,10 +53,15 @@ get '/musics/logouts' do
   redirect '/musics'
 end
 
-delete '/:id' do
+delete '/musics/delete/:id' do
   m = Music.find {|music| music.id.to_s == params[:id]}
   m.destroy
   redirect '/musics'
 end
 
-
+put '/musics/upvote/:id' do
+  m = Music.find {|music| music.id.to_s == params[:id]}
+  m.vote_num += 1
+  m.save
+  redirect '/musics' 
+end

@@ -1,25 +1,24 @@
 <h1>Home Page</h1>
 
-<% if login_user %>
-  <h2>Welcome back, <%= login_user[:username] %></h2>
-  <div>
-    <p><a href="/musics/logouts"><small>(LOGOUT)</small></a></p>
-  </div>
-<% end %>
-
 <% @musics.each do |music| %>
   <div class="music">
     <h3><a href="<%= music.url %>"><%= music.title %></a> <small>(by: <%= music.author %>)</small></h3>
   </div>
   <div>
-    <p><small> <%= music.added_by %><button><%= music.vote_num %></button></small></a></p>
+    <p><small> <%= music.added_by %>(votes:<%= music.vote_num %>)</small></p>
   </div>
-  <div><% if login_user %>
-    <form action="/<%= music.id %>" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="[Delete]">
-    </form>
-  <% end %></div>
+  <div>
+    <% if login_user %>
+      <form action="/musics/upvote/<%=music.id%>" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="submit" value="[VOTE!]">
+      </form>
+      <form action="/musics/delete/<%=music.id%>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="[Delete]">
+      </form>
+    <% end %>
+  </div>
 <% end %>
 
 <a href="/musics/login">LOGIN!</a>
