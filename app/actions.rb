@@ -2,9 +2,28 @@
 
 enable :sessions
 
-def login_user
-  User.find { |user| user[:id] == session[:user_id]}
+helpers do
+
+  def login_user
+    User.find { |user| user[:id] == session[:user_id]}
+  end
+
+  def score_sum votes
+    votes.inject(0) do |sum, vote|
+      sum+=vote.score
+    end
+  end
+
+  def voted? user, music
+    a = music.votes.inject([]) do |a, vote|
+      a << vote[:user_id]
+    end
+    a.include?(user.id)
+  end
+
 end
+
+
 
 get '/' do
   erb :index
@@ -61,7 +80,14 @@ end
 
 put '/musics/upvote/:id' do
   m = Music.find {|music| music.id.to_s == params[:id]}
-  m.vote_num += 1
-  m.save
+  if voted?(login_user, m) == false
+    vote = Vote.create(
+      voter: login_user.username,
+      score: params[:score].to_i,
+      user_id: login_user.id,
+      music_id: params[:id]
+  )
+  end
   redirect '/musics' 
 end
+

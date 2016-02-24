@@ -11,15 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223213616) do
+ActiveRecord::Schema.define(version: 20160224012623) do
 
   create_table "musics", force: :cascade do |t|
     t.string   "title"
     t.string   "author"
     t.string   "url"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "vote_num",   default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "added_by"
   end
 
@@ -28,6 +27,13 @@ ActiveRecord::Schema.define(version: 20160223213616) do
     t.string   "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.string  "voter"
+    t.integer "score"
+    t.integer "user_id"
+    t.integer "music_id"
   end
 
 end

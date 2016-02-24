@@ -3,4 +3,6 @@ class Music < ActiveRecord::Base
   validates :author, presence: true
   validates :url, presence: true
 
+  has_many :votes
+
 end

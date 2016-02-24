@@ -5,14 +5,17 @@
     <h3><a href="<%= music.url %>"><%= music.title %></a> <small>(by: <%= music.author %>)</small></h3>
   </div>
   <div>
-    <p><small> <%= music.added_by %>(votes:<%= music.vote_num %>)</small></p>
+    <p><small> <%= music.added_by %>(votes:<%= score_sum(music.votes) %>)</small></p>
   </div>
   <div>
     <% if login_user %>
+      <% (1..5).each do |index| %>
       <form action="/musics/upvote/<%=music.id%>" method="post">
-        <input type="hidden" name="_method" value="put">
-        <input type="submit" value="[VOTE!]">
+        <input type="hidden" name="_method" value="put" />
+        <input type="hidden" name="score" value="<%= index %>" />
+        <input type="submit" value="[VOTE! <%= index %> ]" />
       </form>
+      <% end %>
       <form action="/musics/delete/<%=music.id%>" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="[Delete]">
